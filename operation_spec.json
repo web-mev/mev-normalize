@@ -1,0 +1,45 @@
+{
+    "name": "RNA-Seq normalization", 
+    "description": "Execute normalized based on several different published RNA-seq normalization methods", 
+    "inputs": {
+        "raw_counts": {
+            "description": "The input raw count matrix. Must be an integer-based table.", 
+            "name": "Count matrix:", 
+            "required": true, 
+            "spec": {
+                "attribute_type": "DataResource", 
+                "resource_types": ["I_MTX", "RNASEQ_COUNT_MTX"], 
+                "many": false
+            }
+        }, 
+        "normalization_method": {
+            "description": "The method to use for normalization. See the help for explanation of each method and references.", 
+            "name": "Normalization method:", 
+            "required": true, 
+            "spec": {
+                "attribute_type": "OptionString",
+                "options": ["CSS", "TSS", "DESeq2", "TMM", "UQ"]
+            }
+        },
+        "log_transform": {
+            "description": "", 
+            "name": "", 
+            "required": false, 
+            "spec": {
+                "attribute_type": "Boolean",
+                "default": false
+            }
+        }
+    }, 
+    "outputs": {
+        "normalized_counts": {
+            "spec": {
+                "attribute_type": "DataResource", 
+                "resource_type": "EXP_MTX",
+                "many": false
+            }
+        }
+    }, 
+    "mode": "local_docker",
+    "workspace_operation": true
+}
