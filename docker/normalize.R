@@ -1,5 +1,3 @@
-
-suppressMessages(suppressWarnings(library('rafalib', character.only=T, warn.conflicts = F, quietly = T)))
 suppressMessages(suppressWarnings(library('metagenomeSeq', character.only=T, warn.conflicts = F, quietly = T)))
 suppressMessages(suppressWarnings(library('edgeR', character.only=T, warn.conflicts = F, quietly = T)))
 suppressMessages(suppressWarnings(library('DESeq2', character.only=T, warn.conflicts = F, quietly = T)))
@@ -22,9 +20,6 @@ OUTPUT_FILE_PATH <- args[4]
 # Note that we assume there is no column header. This keeps R from 'renaming'
 # the columns of the matrix.
 counts <- read.table(COUNTS_FILE, sep='\t', stringsAsFactors=F, row.names=1)
-obj = newMRexperiment(counts, phenoData=NULL, featureData=NULL)
-#include this? don't think so.
-#obj = cumNorm(obj)
 
 METHODS <- c('css', 'tss', 'deseq2', 'tmm', 'uq')
 method_selection <- pmatch(tolower(METHOD), METHODS)
@@ -37,6 +32,9 @@ if(is.na(method_selection)){
 }
 
 if(METHOD == 'css'){
+    
+    obj = newMRexperiment(counts, phenoData=NULL, featureData=NULL)
+    
     # gets the scaling factors so we can ultimately use that to set the 'global'
     # expression level to the median of the adjusted counts
     obj = cumNorm(obj)
@@ -58,9 +56,9 @@ if(METHOD == 'deseq2'){
 }
 
 if(METHOD == 'tmm'){
-  d <- DGEList(counts, lib.size = as.vector(colSums(counts, na.rm=T)))
-  d <- calcNormFactors(d,method='TMM')
-  norm_mtx = cpm(d, normalized.lib.size=TRUE)
+    d <- DGEList(counts, lib.size = as.vector(colSums(counts, na.rm=T)))
+    d <- calcNormFactors(d,method='TMM')
+    norm_mtx = cpm(d, normalized.lib.size=TRUE)
 }
 
 if(METHOD == 'uq'){
