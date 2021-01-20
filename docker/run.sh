@@ -32,7 +32,7 @@ head -1 $INPUT_COUNTS >$FINAL_OUTPUT
 cat $FOUT >>$FINAL_OUTPUT
 
 # Need to create the outputs.json file for WebMEV compatability
-echo "{\"normalized_counts\":\""$FINAL_OUTPUT"\"}" > outputs.json
+echo "{\"normalized_counts\":\""$FINAL_OUTPUT"\"}" > $OUTPUT_DIR/outputs.json
 
 # cleanup
 rm $COUNTS_WITHOUT_HEADER
