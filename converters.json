@@ -1,5 +1,0 @@
-{
-  "raw_counts":"api.converters.data_resource.LocalDockerSingleDataResourceConverter", 
-  "normalization_method": "api.converters.basic_attributes.StringConverter",
-  "log_transform": "api.converters.basic_attributes.BooleanAsIntegerConverter"
-}
