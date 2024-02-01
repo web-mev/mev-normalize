@@ -13,12 +13,12 @@ LOG_TRANFORM=$3
 
 # To prevent R from mangling the column names, we send the counts (without header line)
 # to another temp file
-COUNTS_WITHOUT_HEADER="raw_counts.tsv"
+COUNTS_WITHOUT_HEADER=$OUTPUT_DIR/"raw_counts.tsv"
 sed 1d $INPUT_COUNTS > $COUNTS_WITHOUT_HEADER
 
 # Call the R script. This will output a normalized count matrix without a header
 FOUT=$OUTPUT_DIR/"nc.tsv"
-Rscript /opt/software/normalize.R $COUNTS_WITHOUT_HEADER $METHOD $LOG_TRANFORM $FOUT
+Rscript /usr/local/bin/normalize.R $COUNTS_WITHOUT_HEADER $METHOD $LOG_TRANFORM $FOUT
 
 # Create the final file by concatenating the original header (from the input matrix)
 # and the normalized counts (which did not have a header)
