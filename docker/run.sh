@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # First arg is the path to the input counts matrix
 INPUT_COUNTS=$1
 
